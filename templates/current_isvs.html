@@ -1,0 +1,51 @@
+<!-- templates/current_isvs.html -->
+{% extends "base.html" %}
+{% block title %}Current ISVs{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h2>Current ISVs</h2>
+    </div>
+    <div class="card-body">
+        {% if isvs %}
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Domains</th>
+                        <th>Certification Type</th>
+                        <th>Status</th>
+                        <th>Start Date</th>
+                        <th>POC</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for isv in isvs %}
+                    <tr>
+                        <td>{{ isv.name }}</td>
+                        <td>{{ isv.domains.replace(',', ', ') }}</td>
+                        <td>{{ isv.certification_type|title }}</td>
+                        <td>
+                            <span class="badge bg-{{ 'warning' if isv.status == 'in_progress' else 'secondary' }}">
+                                {{ isv.status|replace('_', ' ')|title }}
+                            </span>
+                        </td>
+                        <td>{{ isv.start_date.strftime('%Y-%m-%d') }}</td>
+                        <td>{{ isv.poc }}</td>
+                        <td>
+                            <button class="btn btn-sm btn-info">View Details</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p class="text-muted">No current ISVs found.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

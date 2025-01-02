@@ -1,0 +1,97 @@
+<!-- templates/add_isv.html -->
+{% extends "base.html" %}
+{% block title %}Add ISV{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h2>Add New ISV</h2>
+    </div>
+    <div class="card-body">
+        <form method="POST" class="needs-validation" novalidate>
+            {{ form.csrf_token }}
+
+            <div class="mb-3">
+                <label for="name" class="form-label">ISV Name</label>
+                {{ form.name(class="form-control") }}
+                {% if form.name.errors %}
+                    <div class="invalid-feedback d-block">
+                        {% for error in form.name.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="mb-3">
+                <label for="domains" class="form-label">Domains</label>
+                {{ form.domains(class="form-control select2") }}
+                {% if form.domains.errors %}
+                    <div class="invalid-feedback d-block">
+                        {% for error in form.domains.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="certification_type" class="form-label">Certification Type</label>
+                    {{ form.certification_type(class="form-control") }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="version" class="form-label">Version</label>
+                    {{ form.version(class="form-control") }}
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                {{ form.description(class="form-control") }}
+            </div>
+
+            <div class="mb-3">
+                <label for="team_members" class="form-label">Team Members</label>
+                {{ form.team_members(class="form-control") }}
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="start_date" class="form-label">Start Date</label>
+                    {{ form.start_date(class="form-control") }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="end_date" class="form-label">End Date (Optional)</label>
+                    {{ form.end_date(class="form-control") }}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="poc" class="form-label">POC</label>
+                    {{ form.poc(class="form-control") }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="status" class="form-label">Status</label>
+                    {{ form.status(class="form-control") }}
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Add ISV</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $(document).ready(function() {
+        $('.select2').select2({
+            theme: 'bootstrap4',
+            placeholder: 'Select domains',
+            allowClear: true
+        });
+    });
+</script>
+{% endblock %}
